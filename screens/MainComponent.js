@@ -1,3 +1,4 @@
+import * as React from "react";
 import {Platform, View} from "react-native";
 import Constants from "expo-constants";
 import DirectoryScreen from "./DirectoryScreen";
@@ -23,6 +24,27 @@ const HomeNavigator = () => {
             <Stack.Screen name="home"
                           component={HomeScreen}
                           options={{title: 'Home'}}/>
+        </Stack.Navigator>
+    );
+};
+
+const AboutNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name="About"
+                          component={AboutScreen}/>
+        </Stack.Navigator>
+    );
+};
+
+const ContactNavigator = () => {
+    const Stack = createStackNavigator();
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name="Contact"
+                          component={ContactScreen}
+                          options={{title: "Contact Us"}}/>
         </Stack.Navigator>
     );
 };

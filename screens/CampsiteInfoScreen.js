@@ -1,3 +1,4 @@
+import * as React from "react";
 import RenderCampsite from "../features/campsites/RenderCampsite";
 
 const CampsiteInfoScreen = ({route}) => {

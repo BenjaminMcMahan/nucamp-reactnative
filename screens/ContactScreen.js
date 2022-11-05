@@ -1,9 +1,12 @@
+import * as React from "react";
 import {ScrollView} from "react-native";
 
 const ContactScreen = () => {
-    <ScrollView>
+    return (
+        <ScrollView>
 
-    </ScrollView>
+        </ScrollView>
+    );
 };
 
 export default ContactScreen;

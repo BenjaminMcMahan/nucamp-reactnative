@@ -1,5 +1,6 @@
+import * as React from "react";
 import {useState} from "react";
-import {FlatList} from "react-native";
+import {FlatList} from "react-native"; // TODO - Review benefits of ScrollView vs FlatList
 import {Avatar, ListItem} from "react-native-elements";
 import {CAMPSITES} from "../shared/campsites";
 
@@ -19,6 +20,7 @@ const DirectoryScreen = ({navigation}) => {
             </ListItem>
         );
     };
+    // TODO - Debug warning regarding missing keys
     return (
         <FlatList
             data={campsites}
