@@ -11,7 +11,7 @@ const Mission = () => {
                 Our Mission
             </Card.Title>
             <Card.Divider/>
-            <Text>
+            <Text style={{margin:10}}>
                 We present a curated database of the best campsites in the vast woods and backcountry of the World Wide
                 Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use
                 of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure
