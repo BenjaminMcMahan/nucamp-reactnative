@@ -1,4 +1,3 @@
-import * as React from "react";
 import {Platform, View} from "react-native";
 import Constants from "expo-constants";
 import DirectoryScreen from "./DirectoryScreen";
@@ -23,7 +22,7 @@ const HomeNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen name="home"
                           component={HomeScreen}
-                          options={{title: 'Home'}}/>
+                          options={{title: 'Home - Edited'}}/>
         </Stack.Navigator>
     );
 };

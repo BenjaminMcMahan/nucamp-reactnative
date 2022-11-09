@@ -1,4 +1,3 @@
-import * as React from "react";
 import {useState} from "react";
 import {ScrollView, Text, View} from 'react-native';
 import {Card} from 'react-native-elements';
