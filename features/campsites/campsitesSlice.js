@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { baseUrl } from '../../shared/baseUrl';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {baseUrl} from '../../shared/baseUrl';
 
 export const fetchCampsites = createAsyncThunk(
     'campsites/fetchCampsites',
@@ -11,7 +11,7 @@ export const fetchCampsites = createAsyncThunk(
 
 const campsitesSlice = createSlice({
     name: 'campsites',
-    initialState: { isLoading: true, errMess: null, campsitesArray: [] },
+    initialState: {isLoading: true, errMess: null, campsitesArray: []},
     reducers: {},
     extraReducers: {
         [fetchCampsites.pending]: (state) => {
