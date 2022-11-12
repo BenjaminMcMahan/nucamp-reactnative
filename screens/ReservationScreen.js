@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import {
     Text,
     View,
@@ -8,7 +8,7 @@ import {
     Button,
     Modal
 } from "react-native";
-import {Picker} from "@react-native-picker/picker";
+import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const ReservationScreen = () => {
@@ -118,8 +118,8 @@ const ReservationScreen = () => {
                             setShowModal(!showModal);
                             resetForm();
                         }}
-                        color='#5637DD'
-                        title='Close'
+                        color="#5637DD"
+                        title="Close"
                     />
                 </View>
             </Modal>

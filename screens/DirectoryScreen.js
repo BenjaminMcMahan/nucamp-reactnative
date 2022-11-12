@@ -1,7 +1,7 @@
-import {FlatList, Text, View} from "react-native"; // TODO - Review benefits of ScrollView vs FlatList
-import {Tile} from "react-native-elements";
-import {useSelector} from "react-redux";
-import {baseUrl} from "../shared/baseUrl";
+import { FlatList, Text, View } from "react-native"; // TODO - Review benefits of ScrollView vs FlatList
+import { Tile } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { baseUrl } from "../shared/baseUrl";
 import Loading from "../components/LoadingComponent";
 
 const DirectoryScreen = ({navigation}) => {

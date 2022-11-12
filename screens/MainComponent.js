@@ -1,21 +1,21 @@
-import {Image, Platform, StyleSheet, Text, View} from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
 import DirectoryScreen from "./DirectoryScreen";
 import CampsiteInfoScreen from "./CampsiteInfoScreen";
 import ReservationScreen from "./ReservationScreen";
-import {createStackNavigator} from "@react-navigation/stack";
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
-import {useDispatch} from "react-redux";
-import {useEffect} from "react";
-import {Icon} from "react-native-elements";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { Icon } from "react-native-elements";
 import logo from "../assets/images/logo.png";
 import HomeScreen from "./HomeScreen";
 import AboutScreen from "./AboutScreen";
 import ContactScreen from "./ContactScreen";
-import {fetchPartners} from "../features/partners/partnersSlice";
-import {fetchCampsites} from "../features/campsites/campsitesSlice";
-import {fetchPromotions} from "../features/promotions/promotionsSlice";
-import {fetchComments} from "../features/comments/commentsSlice";
+import { fetchPartners } from "../features/partners/partnersSlice";
+import { fetchCampsites } from "../features/campsites/campsitesSlice";
+import { fetchPromotions } from "../features/promotions/promotionsSlice";
+import { fetchComments } from "../features/comments/commentsSlice";
 
 const Drawer = createDrawerNavigator();
 
