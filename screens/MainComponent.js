@@ -12,7 +12,7 @@ import logo from "../assets/images/logo.png";
 import HomeScreen from "./HomeScreen";
 import AboutScreen from "./AboutScreen";
 import ContactScreen from "./ContactScreen";
-import FavoriteScreen from "./FavoriteScreen";
+import FavoriteScreens from "./FavoriteScreens";
 import { fetchPartners } from "../features/partners/partnersSlice";
 import { fetchCampsites } from "../features/campsites/campsitesSlice";
 import { fetchPromotions } from "../features/promotions/promotionsSlice";
@@ -99,7 +99,7 @@ const FavoritesNavigator = () => {
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen
                 name="Favorites"
-                component={FavoriteScreen}
+                component={FavoriteScreens}
                 options={({navigation}) => ({
                     title: 'Favorite Campsites',
                     headerLeft: () => (

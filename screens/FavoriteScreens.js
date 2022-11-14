@@ -4,7 +4,7 @@ import { Avatar, ListItem } from "react-native-elements";
 import Loading from "../components/LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 
-const FavoriteScreen = ({navigation}) => {
+const FavoriteScreens = ({navigation}) => {
     const {campsitesArray, isLoading, errMess} = useSelector(
         (state) => state.campsites
     );
@@ -49,4 +49,4 @@ const FavoriteScreen = ({navigation}) => {
     />;
 };
 
-export default FavoriteScreen;
+export default FavoriteScreens;
