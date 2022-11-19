@@ -1,1 +1,1 @@
-export const baseUrl = 'http://192.168.0.23:3001/'; // TODO - why are we setting a specific IP?
+export const baseUrl = 'http://192.168.1.194:3001/'; // TODO - why are we setting a specific IP?
