@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Image } from "react-native";
 import { CheckBox, Input, Button, Icon } from "react-native-elements";
 import * as SecureStore from "expo-secure-store";
+import * as ImagePicker from "expo-image-picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { baseUrl } from "../shared/baseUrl";
+import logo from "../assets/images/logo.png";
 
 
 const LoginTab = ({navigation}) => {
@@ -75,7 +78,7 @@ const LoginTab = ({navigation}) => {
                             name="sign-in"
                             type="font-awesome"
                             color="#fff"
-                            iconStyle={{ marginRight: 10 }}
+                            iconStyle={{marginRight: 10}}
                         />
                     }
                     buttonStyle={{backgroundColor: '#5637DD'}}
@@ -107,6 +110,7 @@ const RegisterTab = () => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [remember, setRemember] = useState(false);
+    const [imageUrl, setImageUrl] = useState(baseUrl + 'images/logo.png');
 
     const handleRegister = () => {
         const userInfo = {
@@ -132,9 +136,37 @@ const RegisterTab = () => {
                 .catch((error) => console.log('Could not delete user info', error));
         }
     };
+
+    const getImageFromCamera = async () => {
+        const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (cameraPermission.status === 'granted') {
+            const capturedImage = await ImagePicker.launchCameraAsync({
+                allowsEditing: true, // Allows the phone's image editor
+                aspect: [1, 1] // Square image
+            });
+
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                setImageUrl(capturedImage.uri);
+            }
+        }
+    };
+
     return (
         <ScrollView>
             <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image
+                        source={{ uri: imageUrl }}
+                        loadingIndicatorSource={logo}
+                        style={styles.image}
+                    />
+                    <Button
+                        title="Camera"
+                        onPress={getImageFromCamera}
+                    />
+                </View>
                 <Input
                     placeholder="Username"
                     leftIcon={{type: 'font-awesome', name: 'user-o'}}
@@ -193,7 +225,7 @@ const RegisterTab = () => {
                                 name="user-plus"
                                 type="font-awesome"
                                 color="#fff"
-                                iconStyle={{ marginRight: 10 }}
+                                iconStyle={{marginRight: 10}}
                             />
                         }
                         buttonStyle={{backgroundColor: '#5637DD'}}
@@ -271,6 +303,17 @@ const styles = StyleSheet.create({
         margin: 20,
         marginRight: 40,
         marginLeft: 40
+    },
+    imageContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        margin: 10
+    },
+    image: {
+        width: 60,
+        height: 60
     }
 });
 
