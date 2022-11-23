@@ -1,4 +1,4 @@
-import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, Platform, StyleSheet, Text, ToastAndroid, View, } from "react-native";
 import Constants from "expo-constants";
 import DirectoryScreen from "./DirectoryScreen";
 import CampsiteInfoScreen from "./CampsiteInfoScreen";
@@ -8,6 +8,7 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import NetInfo from "@react-native-community/netinfo";
 import { Icon } from "react-native-elements";
 import logo from "../assets/images/logo.png";
 import HomeScreen from "./HomeScreen";
@@ -224,6 +225,43 @@ const Main = () => {
         dispatch(fetchPartners());
         dispatch(fetchComments());
     }, [dispatch]);
+
+    useEffect(() => {
+        NetInfo.fetch().then((connectionInfo) => {
+            Platform.OS === 'ios' ? Alert.alert('Initial Network Connection Type:', connectionInfo.type) :
+                ToastAndroid.show(
+                    'Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG
+                );
+        });
+
+        return NetInfo.addEventListener(
+            (connectionInfo) => {
+                handleConnectivityChange(connectionInfo);
+            }
+        );
+    }, []);
+
+    const handleConnectivityChange = (connectionInfo) => {
+        let connectionMsg = 'You are now connected to an active network.';
+        switch (connectionInfo.type) {
+            case 'none':
+                connectionMsg = 'No network connection is active.';
+                break;
+            case 'unknown':
+                connectionMsg = 'The network connection state is now unknown.';
+                break;
+            case 'cellular':
+                connectionMsg = 'You are now connected to a cellular network.';
+                break;
+            case 'wifi':
+                connectionMsg = 'You are now connected to a WiFi network.';
+                break;
+        }
+
+        Platform.OS === 'ios' ? Alert.alert('Connection Change:', connectionMsg)
+            : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
+    };
+
     return (
         <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight}}>
             <Drawer.Navigator
