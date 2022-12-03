@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, ScrollView, Image } from "react-native";
 import { CheckBox, Input, Button, Icon } from "react-native-elements";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
+import * as MediaLibrary from "expo-media-library";
 import * as SecureStore from "expo-secure-store";
 import * as ImagePicker from "expo-image-picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -148,7 +150,36 @@ const RegisterTab = () => {
 
             if (!capturedImage.cancelled) {
                 console.log(capturedImage);
-                setImageUrl(capturedImage.uri);
+                await processImage(capturedImage.uri);
+                await MediaLibrary.saveToLibraryAsync(capturedImage.uri)
+            }
+        }
+    };
+
+    const processImage = async (imgUri) => {
+        const processedImage = await manipulateAsync(imgUri, [
+                {resize: {width: 400}}
+            ],
+            {format: SaveFormat.PNG}
+        );
+
+        console.log(processedImage);
+
+        setImageUrl(processedImage.uri);
+    };
+
+    const getImageFromGallery = async () => {
+        const mediaLibraryPermissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (mediaLibraryPermissions.status === 'granted') {
+            const capturedImage = await ImagePicker.launchImageLibraryAsync({
+                allowsEditing: true,
+                aspect: [1, 1]
+            });
+
+            if (!capturedImage.cancelled) {
+                console.log(capturedImage);
+                await processImage(capturedImage.uri);
             }
         }
     };
@@ -158,13 +189,17 @@ const RegisterTab = () => {
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={{ uri: imageUrl }}
+                        source={{uri: imageUrl}}
                         loadingIndicatorSource={logo}
                         style={styles.image}
                     />
                     <Button
                         title="Camera"
                         onPress={getImageFromCamera}
+                    />
+                    <Button
+                        title="Gallery"
+                        onPress={getImageFromGallery}
                     />
                 </View>
                 <Input

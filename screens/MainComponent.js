@@ -227,19 +227,40 @@ const Main = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        NetInfo.fetch().then((connectionInfo) => {
-            Platform.OS === 'ios' ? Alert.alert('Initial Network Connection Type:', connectionInfo.type) :
-                ToastAndroid.show(
-                    'Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG
-                );
+        /*
+        This works.  :)
+        Regarding the variable return discussion, see this SO post. Good discussion of each approach, pros and cons.
+        https://stackoverflow.com/questions/31733811/local-variables-before-return-statements-does-it-matter#:~:text=Declaring%20a%20variable%20only%20to,name%20what%20is%20being%20returned
+         */
+        showNetInfo().then(() => {
+            return NetInfo.addEventListener(
+                (connectionInfo) => {
+                    handleConnectivityChange(connectionInfo);
+                }
+            );
         });
 
-        return NetInfo.addEventListener(
+        // Or....
+        // showNetInfo(); //not using a then or catch block
+        // And..
+
+        const unsubscribeNetInfo  = NetInfo.addEventListener(
             (connectionInfo) => {
                 handleConnectivityChange(connectionInfo);
             }
         );
+
+        return unsubscribeNetInfo;
     }, []);
+
+    const showNetInfo = async () => {
+        const connectionInfo = await NetInfo.fetch();
+
+        Platform.OS === 'ios' ? Alert.alert('Initial Network Connection Type:', connectionInfo.type) :
+            ToastAndroid.show(
+                'Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG
+            );
+    };
 
     const handleConnectivityChange = (connectionInfo) => {
         let connectionMsg = 'You are now connected to an active network.';
